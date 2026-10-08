@@ -27,7 +27,17 @@ public class ClienteService {
 
     public Cliente build(ClienteDTO dto) {
 
-        Cliente cliente = new Cliente();
+        Cliente cliente = null;
+
+        if (dto.getId() == null) { //Montado para o cadastro
+
+            cliente = new Cliente();
+
+        } else { //Consultado para a alteração
+
+            cliente = repository.findById(dto.getId()).get();
+      }
+
         cliente.setUsuario(dto.getUsuario());
         cliente.setEnderecos(dto.getEnderecos());
         cliente.setNome(dto.getNome());
@@ -47,4 +57,12 @@ public class ClienteService {
         cliente.setHabilitado(true);
         return repository.save(cliente);
     }
+
+    @Transactional
+    public Cliente atualizar(ClienteDTO dto) {
+
+        Cliente cliente = build(dto);
+        return repository.save(cliente);
+    }
+
 }
