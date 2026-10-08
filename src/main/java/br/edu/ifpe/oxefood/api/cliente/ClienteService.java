@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 
+import java.util.List;
 
 @Service
 public class ClienteService {
@@ -12,6 +13,16 @@ public class ClienteService {
 
     public ClienteService(ClienteRepository repository) {
        this.repository = repository;
+    }
+
+    public List<Cliente> listar() {
+
+        return repository.findAll();
+    }
+
+    public Cliente buscarPorId(Long id) {
+
+        return repository.findById(id).get();
     }
 
     public Cliente build(ClienteDTO dto) {
