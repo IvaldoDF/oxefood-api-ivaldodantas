@@ -65,4 +65,13 @@ public class ClienteService {
         return repository.save(cliente);
     }
 
+    @Transactional
+    public void remover(Long id) {
+
+        Cliente cliente = repository.findById(id).get();
+        cliente.setHabilitado(false);
+
+        repository.save(cliente);
+   }
+
 }
